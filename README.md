@@ -31,10 +31,10 @@ skill 文件并让模型严格执行。
 在**任意目录**执行（路径用你的本仓库路径，绝对/相对均可）：
 
 ```bash
-dsh plugin --profile web add D:/project/github/dsh-lignting
+dsh plugin --profile web add <你的仓库路径>
 
 # 或从 GitHub 安装
-dsh plugin --profile web add git+https://github.com/<owner>/dsh-lignting.git
+dsh plugin --profile web add git+https://github.com/loster12520/dsh-lignting.git
 ```
 
 然后**重启 `dsh web`**（Host 半区改动需要重启）。
