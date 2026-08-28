@@ -1,0 +1,25 @@
+{
+  "name": "dsh-lignting",
+  "version": "0.1.0",
+  "description": "lignting 命令中枢：/lt-plan /lt-check /lt-review /lt-discussion 斜杠命令 + 配套 skill（逻辑全在 skill 文件，可跨 agent 迁移）",
+  "type": "module",
+  "main": "src/host.js",
+  "exports": {
+    ".": "./src/host.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "verify": "node scripts/verify.mjs",
+    "check": "node --check src/host.js && npm run verify"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-llm": "^0.1.0-rc.6"
+  },
+  "license": "MIT"
+}

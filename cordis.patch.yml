@@ -1,0 +1,17 @@
+# dsh-lignting bundle patch
+#
+# `dsh.bundle.patch` layer of the package: when installed through the official
+# CLI —
+#
+#   dsh plugin --profile web add <本仓库路径>
+#
+# — the command appends this single `insert` (one plugin row) to the profile's
+# bundle stack (`dsh.profile.bundles`), exactly like a manual cordis.patch.yml
+# mount line. No profile edits needed.
+#
+# 注意：若此前已用手动方式挂载过同一 id（profile 的 cordis.patch.yml 里的
+# `{id: lignting-commands, name: dsh-lignting}` 行），切换到本安装方式前请先
+# 删除旧行，避免同一插件被重复挂载、命令重复注册。
+- insert:
+    - id: lignting-commands
+      name: 'dsh-lignting'
