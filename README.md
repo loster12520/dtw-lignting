@@ -31,7 +31,7 @@ skill 文件并让模型严格执行。
 **跳层是正常用法**：需求已清楚只需排期 → 直接 `/ltc`；已有阶段表只需细化某一轮 → 直接 `/ltp`；
 单点小改动 → 走 `/ltpl`。
 
-**跨对话**：与 `whatsnext` 插件（`/wn*`）配合——方案与决策理由（`.lignting/`，随 git）、
+**跨对话**：与 [whatsnext](https://github.com/Twisuki/whatsnext) 插件（`/wn*`）配合——方案与决策理由（`.lignting/`，随 git）、
 任务状态与进展（`.whatsnext/`，私有）各归各的，换会话不丢上下文。
 
 ### 独立运维命令
