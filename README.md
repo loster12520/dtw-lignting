@@ -67,6 +67,7 @@ dsh plugin --profile web add <本仓库路径>
 | [docs/install.md](docs/install.md) | 安装细节：打包原理、skill 解析顺序、手动安装、副本同步 |
 | [docs/commands.md](docs/commands.md) | 完整命令表、跳层规则、`.lignting/` 文档目录约定、跨对话说明 |
 | [docs/development.md](docs/development.md) | 目录结构、自检脚本、改动后的同步纪律 |
+| [CHANGELOG.md](CHANGELOG.md) | 变更记录（改了哪些流程、为什么改） |
 | [MIGRATION.md](MIGRATION.md) | 迁移到其他 agent 工具（Claude Code / Cursor 等） |
 
 ## License

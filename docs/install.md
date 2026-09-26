@@ -34,7 +34,8 @@ dsh plugin --profile web add git+https://github.com/loster12520/dtw-lignting.git
 
 适合不想走 pnpm 的场景，效果与方式一等价：
 
-1. 把 `skills/lignting/` 整体复制到用户级目录：`~/.dsh/skills/lignting/`；
+1. 把 `skills/lignting/` 整体复制到用户级目录：`~/.dsh/skills/lignting/`
+   （或按上面做成软链）；
 2. 把插件代码放到 `~/.dsh/profiles/web/plugins/dsh-lignting/`（或按 `dsh plugin add` 安装）；
 3. 在 `~/.dsh/profiles/web/cordis.patch.yml` 加一行 `- id: lignting-commands / name: dsh-lignting`；
 4. 重启 `dsh web`。
@@ -55,24 +56,26 @@ dsh plugin --profile web add git+https://github.com/loster12520/dtw-lignting.git
 1. **用户级优先**：`~/.dsh/skills/lignting/`（存在 `SKILL.md` 时使用——可编辑、可跨 agent 共享）；
 2. **包内回退**：本包自带的 `skills/lignting/`（`dsh plugin add` 装完即用，无需手工复制）。
 
-## ⚠️ 两份副本要同步
+## ⚠️ 两份副本的关系
 
-**用户级副本与仓库版不是软链，没有任何机制保证一致。**
-
-DSH 实际加载的是**用户级**那份。改完仓库不复制过去，改了不生效——而且不会有任何报错，
-只会表现为"新命令敲不出来 / 老流程还在跑"。
-
-`npm run verify` 会逐文件比对两份并报出漂移，改动后跑一遍：
+**DSH 实际加载的是用户级那份**（`~/.dsh/skills/lignting/`，用户级优先、包内回退）。
+两份之间没有自动同步机制，所以推荐把它做成**软链**，从根上消掉漂移：
 
 ```bash
-npm run check
+ln -sfn <仓库绝对路径>/skills/lignting ~/.dsh/skills/lignting
 ```
 
-修复方式：把 `skills/lignting/` 整体复制到 `~/.dsh/skills/lignting/`，
-并删掉用户级里仓库已移除的文件。
+- 软链在：改仓库即改用户级，DSH 的 skill 监视还会让改动**无需重启**就进入下一次目录；
+  `npm run verify` 的第四项逐文件比对同样通过（读到的是同一批文件）。
+- 不方便软链的平台（Windows 等）：把 `skills/lignting/` 整体复制过去，
+  并删掉用户级里仓库已移除的文件；每次改完仓库都要重跑一次 `npm run check`。
 
-> 用 `dsh plugin` 的本地链接方式安装时，仓库改动仍需手工同步——链接的是**插件代码**，
-> 不是 skill 目录。
+`npm run check` 会逐文件比对两份并报出漂移；第四项在用户级缺失时**跳过并提示**
+（那是正常状态，实际用包内那份）。
+
+> 用 `dsh plugin` 的本地链接方式安装时，链接的是**插件代码**，不是 skill 目录——
+> 但插件读的 `command/*.md` 是每次命令触发时**现读**的，
+> 所以只要软链或复制到位，改流程文件不需要重启。
 
 ## 使用
 

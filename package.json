@@ -1,7 +1,7 @@
 {
   "name": "dsh-lignting",
-  "version": "0.1.0",
-  "description": "lignting 命令中枢：/lt-plan /lt-check /lt-review /lt-discussion 斜杠命令 + 配套 skill（逻辑全在 skill 文件，可跨 agent 迁移）",
+  "version": "0.1.1",
+  "description": "lignting 命令中枢：小阿卡那四层体系（/lts /ltc /ltp /ltw）+ 独立运维命令（/lt-plan /lt-check /lt-review）斜杠命令 + 配套 skill（流程全在 skill 文件，可跨 agent 迁移）",
   "type": "module",
   "main": "src/host.js",
   "exports": {

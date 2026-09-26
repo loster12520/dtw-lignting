@@ -25,8 +25,11 @@
 
 ```markdown
 - 采用方案 B：渲染层做抽象，先抽后搬。
-  （见 [direction.dialogue.md](direction.dialogue.md) L4）
+  （见 [L4 · 实现与收尾](direction.dialogue.md#l4--实现与收尾)）
 ```
+
+链接要**可点击**（相对路径 + 该轮标题的锚点），不要只写一个 `L4` 让读者自己去翻。
+锚点生成规则见 [dialogue-log-format.md](dialogue-log-format.md) 的「回指链接」一节。
 
 回指粒度：**决策级**条目必带，纯事实陈述（现状清单之类）可省。
 

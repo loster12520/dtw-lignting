@@ -55,13 +55,14 @@ frontmatter，以及任务内 `plan.md` 的 `- [x]` 复选框。
 每层各开一个任务会让 Focus 打架（whatsnext 约束同时只有一个 Focus），
 恢复协议也无法判断该恢复哪个。
 
-### 4. 真源在仓库，副本要进行同步
+### 4. 真源在仓库，副本要同步
 
 命令文件的事实源在仓库 `dsh-lignting/skills/lignting/`，而 DSH 实际加载的是
 用户级 `~/.dsh/skills/lignting/`（用户级优先，包内回退）。
 
-**两者不是软链，没有任何机制保证一致。** 改完仓库必须同步到用户级，否则改了不生效。
-自检见仓库 `scripts/verify.mjs`（含两份一致性检查）。
+**推荐把它做成软链**（`ln -sfn <仓库>/skills/lignting ~/.dsh/skills/lignting`），
+两份即同一批文件；不能软链时手工复制，并在每次改完后跑 `npm run check`
+把漂移暴露出来（第四项就是干这个的）。自检见仓库 `scripts/verify.mjs`。
 
 ## 三、whatsnext 结构速查
 

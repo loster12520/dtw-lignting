@@ -45,7 +45,7 @@ npm run verify   # 只跑自检
 |---|---|
 | 加/删命令文件 | `src/host.js` 的 `COMMANDS`、`SKILL.md` 路由表、`verify.mjs` 的 `required` 清单 |
 | 改命令名 | 上面三处 + 各文档里的命令表 |
-| 改 skill 任意内容 | **同步到 `~/.dsh/skills/lignting/`**（否则 DSH 加载的还是旧副本） |
+| 改 skill 任意内容 | **同步到 `~/.dsh/skills/lignting/`**（推荐软链，见 [install.md](install.md)；复制方式下不同步等于没改） |
 
 两条写死的约束：
 
