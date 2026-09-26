@@ -33,6 +33,8 @@ skill 文件并让模型严格执行。
 
 **跨对话**：与 [whatsnext](https://github.com/Twisuki/whatsnext) 插件（`/wn*`）配合——方案与决策理由（`.lignting/`，随 git）、
 任务状态与进展（`.whatsnext/`，私有）各归各的，换会话不丢上下文。
+它不是本仓库的依赖，需单独安装（见 [docs/install.md](docs/install.md#配套安装-whatsnextwn)）；
+没装时小阿卡那照常工作，只是少了任务恢复与经验沉淀。
 
 ### 独立运维命令
 

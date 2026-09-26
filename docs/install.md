@@ -86,3 +86,29 @@ ln -sfn <仓库绝对路径>/skills/lignting ~/.dsh/skills/lignting
 ```
 
 命令清单与跳层规则见 [commands.md](commands.md)。
+
+## 配套：安装 whatsnext（`/wn*`）
+
+小阿卡那的跨对话能力依赖 whatsnext 的计划区（`.whatsnext/`）。它与本插件各自独立安装：
+
+```bash
+git clone https://github.com/Twisuki/whatsnext ~/project/github/whatsnext
+dsh plugin --profile web add ~/project/github/whatsnext
+```
+
+- 包名是 `whatsnext-dsh`（仓库根目录本身就是一个 DSH 插件包）；装完 profile 的
+  `dsh.profile.bundles` 会多一项，**它是 bundle 层，要重启 `dsh web`** 才会出现 `/wn` 命令族。
+- 远程安装：`dsh plugin --profile web add github:Twisuki/whatsnext`
+  （GitHub 直连可用；`raw.githubusercontent.com` 不通时用加速前缀取源码）。
+- 装完自检：
+
+  ```bash
+  cd ~/project/github/whatsnext
+  npm run verify                                        # 插件契约 + skill 完备性
+  node scripts/verify-mounted.mjs ~/.dsh/profiles/web    # 真实 profile 里的注册与提示词投递
+  ```
+
+- 它**不在**插件市场的精选目录里（市场搜不到、也不能从市场装）——
+  升级用 `git -C ~/project/github/whatsnext pull` 后重启。
+- 分工与接续规则见 `skills/lignting/references/whatsnext-bridge.md`：
+  `.lignting/`（随 git）存方案、`.whatsnext/`（私有）存任务状态。
