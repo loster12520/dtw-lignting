@@ -109,6 +109,9 @@ lignting 是一组开发流程命令的中枢 skill。所有命令的具体流�
 - 涉及多个模块/多条链路时，一次并行开多个 `subagent_explore`，按模块切分；子代理只输出
   符号/文件/调用链，不下结论。
 - 审查类并行子代理直接使用 `subagent` 工具，prompt 按各命令文件内模板内联。
+- **委派一律是后台托管**（dsh 0.2.1+ 移除了 `run_in_background` / `enableRunInBackground`）：
+  调用立即返回 child id，不要在参数里传 `run_in_background`；子代理结果以**完成通知**
+  的形式回到对话，等所有并发子代理的通知到齐后再汇总（需要追问用 `send_message`）。
 
 ### 4. 提问规范
 

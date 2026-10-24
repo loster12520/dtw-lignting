@@ -6,6 +6,8 @@
   "main": "src/host.js",
   "exports": {
     ".": "./src/host.js",
+    "./explore": "./src/explore.js",
+    "./explore-restrict": "./src/explore-restrict.js",
     "./package.json": "./package.json"
   },
   "dsh": {
@@ -15,7 +17,7 @@
   },
   "scripts": {
     "verify": "node scripts/verify.mjs",
-    "check": "node --check src/host.js && npm run verify"
+    "check": "node --check src/host.js && node --check src/explore.js && node --check src/explore-restrict.js && npm run verify"
   },
   "dependencies": {
     "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.6",
