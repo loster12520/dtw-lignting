@@ -42,6 +42,7 @@ const required = [
   // 小阿卡那各层共用格式
   'references/dialogue-log-format.md',
   'references/plan-doc-format.md',
+  'references/roadmap-format.md',
   'references/whatsnext-bridge.md',
 ];
 for (const f of required) {

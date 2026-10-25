@@ -29,6 +29,9 @@ frontmatter，以及任务内 `plan.md` 的 `- [x]` 复选框。
 
 理由：两边都记状态必然漂移，且会绕过 whatsnext 的 Focus 机制。
 
+> 边界：`roadmap.md` 的「现状」只写位置指针 + 日期，「执行回填」只写已发生事实；
+> 两者都不写完成状态、复选框、百分比或“下一步待办”。方案文档、对话记录、执行报告同理。
+
 ### 2. 委托而非复制：不调 whatsnext 的脚本
 
 小阿卡那**从不直接执行** whatsnext 的脚本（`new_task.py` / `scan_tasks.py` /

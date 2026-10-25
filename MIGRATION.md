@@ -4,7 +4,9 @@
 
 - `SKILL.md`：命令路由表（`/lt-plan`、`/lt-check`、`/lt-review`、`/lt-discussion` 及各别名）
   + 公共约束（codegraph 前置检查 / 探索走 codegraph / 子代理规范 / 提问规范 / 输出规范 / 改码需确认）；
-- `command/*.md`：各命令的具体流程（plan / check / review / discussion）。
+- `command/*.md`：各命令的具体流程（plan / check / review / discussion）；
+- `references/*.md`：共用格式——对话记录、方案文档、总计划 `roadmap.md`（人读视图，不是命令输入）、
+  whatsnext 桥接。
 
 DSH 插件（`src/host.js`）只是薄壳，负责把 DSH 的斜杠命令定向到 skill 文件。**其他 agent 工具
 不需要插件**——只要把 `skills/lignting/` 迁移到该工具的用户级 skill 目录，即可获得同样的
@@ -59,8 +61,17 @@ cp -r /path/to/dsh-lignting/skills/lignting ~/.dsh/skills/
 2. 用触发词试一句（如「规划需求 / 做个计划」「讨论需求 / 把大需求详细化拆解」），
    或直接调命令（`/lt-plan <需求描述>`、`/ltds <大需求描述>`）；
 3. 确认 agent 第一步会 `read` `command/<file>` 并遵守公共约束：
-   - 探索前先 `codegraph_status`（项目未 init 会要求先 `codegraph init -i`，不得绕过）；
-   - 代码探索走 codegraph / 子代理，提问用带选项的提问工具（每轮 ≤6，推荐项第一）；
+   - 探索前先确认 codegraph 指向当前项目（有 `codegraph_status` 就用；没有就用
+     `codegraph_explore` 带 `projectPath` 做等价检查）；项目未 init 会要求先
+     `codegraph init -i`，不得绕过；MCP 默认项目可能不是当前仓库，结构查询**必须带 `projectPath`**；
+   - 代码探索走 codegraph；子代理按 `SKILL.md` §3 选路——**Agent Teams 优先**
+     （`spawn_teammate` / `team_task_*` / `send_message` / `wait_agent`），未启用则回退
+     native `subagent` / `subagent_fork`，整轮不混用；提问用带选项的提问工具（非讨论层每轮 ≤6，推荐项第一）；
+   - 讨论命令（`/lts`、`/ltc`、`/ltp`）先判断后提问：每轮 3–4 个核心问题（硬上限 4），
+     每题四段式（背景 / 问题 / 你为什么这么考虑 / 推荐答案）；对外不播报层/相标签，
+     讨论记录也不写相名；
+   - `.lignting/<feature>/roadmap.md` 是人读总计划，**不是命令输入**——命令只读
+     `direction.md` / `phases.md` / `phase-<n>/round-<m>.md`；roadmap 不写状态、冲突以源文档为准；
    - 计划/报告默认输出到对话，落盘需用户确认。
 
 ## 五、注意事项

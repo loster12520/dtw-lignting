@@ -77,14 +77,36 @@ ln -sfn <仓库绝对路径>/skills/lignting ~/.dsh/skills/lignting
 > 但插件读的 `command/*.md` 是每次命令触发时**现读**的，
 > 所以只要软链或复制到位，改流程文件不需要重启。
 
+## 可选：启用 Agent Teams（推荐）
+
+lignting 的子代理调度默认**先走 Agent Teams**（持久小队 + 共享任务板），没启用时自动回退
+native `subagent` / `subagent_fork`。它是 **DSH 官方宿主能力**，随
+`@deepseek-ai/dsh@0.2.1-rc.2` 自带，**不需要单独安装插件**：
+
+- 在 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 里加入
+  `@deepseek-ai/dsh-experimental-agent-team-profile`（dsh 自带，不需要另外 npm install），
+  重启 `dsh web` 生效；
+- 它**不是** `@nanmicoder/dsh-agent-teams`；启用后拿到的工具是 `spawn_teammate` /
+  `send_message` / `list_agents` / `wait_agent` / `interrupt_agent` /
+  `team_task_create|list|get|update`，**没有** `agent_teams_*` 工具；
+- 没启用也不影响命令本身：探索/审查/并行执行回退 native `subagent` / `subagent_fork`
+  （探索若挂载了 `subagent_explore` 优先用它；本机当前 profile 未挂载）。
+
+> 附件能力同样需要 **DSH 0.2.1+**：命令声明 `input.attachments` 后才能把图片/文件
+> 随命令带进模型；更老的版本只能文字输入。
+
 ## 使用
 
 主输入框直接输入 `/<命令> <参数>`，例如：
 
-```
+```text
 /lts 把项目从 A 模式重构为 B 模式
+/ltck 直接附上报错截图/日志（不写文字也算输入）
+/ltrv                         # 不带参数：首次看小教程，之后默认 middle
 ```
 
+不带参数（无文字且无附件）时会输出按当前项目真实文件/模块组织的小教程；`/ltrv` 首次
+（`.lignting/.cr-state.json` 不存在）出教程，之后无参默认 `middle` + 自动检测范围。
 命令清单与跳层规则见 [commands.md](commands.md)。
 
 ## 配套：安装 whatsnext（`/wn*`）

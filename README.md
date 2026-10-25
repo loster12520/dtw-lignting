@@ -46,6 +46,24 @@ skill 文件并让模型严格执行。
 | `/lt-check` | `/ltck` | Bug 排查（信息收割 + 有计划的插桩） |
 | `/lt-review` | `/ltrv` | 代码审查（low/middle/high 三档） |
 
+### 输入与协作
+
+- **16 个命令入口**（7 个命令文件 + 别名）都支持随命令附带**图片/文件**；
+  只有附件、没有文字也算一次输入。
+- **不带参数**时输出按当前项目真实文件/模块举例的小教程；`/ltrv` 首次
+  （`.lignting/.cr-state.json` 不存在）出教程，之后无参默认 `middle` + 自动检测范围。
+- 子代理**优先 Agent Teams**（`spawn_teammate` / `team_task_*` 等，随
+  `@deepseek-ai/dsh@0.2.1-rc.2` 自带），未启用时自动回退 native `subagent` / `subagent_fork`。
+- **讨论先判断后提问**：`/lts`、`/ltc`、`/ltp` 每轮先给判断 + 依据 + 还没定的，再问
+  **3–4 个核心问题**（背景 / 问题 / 为什么这么考虑 / 推荐答案，硬上限 4）；
+  对外不播报“层 / 相”标签，讨论重点变化用自然过渡。
+- **总计划 `roadmap.md`**：每个 feature 在 `.lignting/<feature>/roadmap.md` 有一份人读总计划
+  （细节也放，以源文档为准，不写状态，**不是命令输入**）——`/lts` 建框架 → `/ltc` 填大轮次
+  → `/ltp` 填当前轮 → `/ltw` 回填实际。
+- **每轮落盘**：`/lts` → `direction.dialogue.md`、`/ltc` → `phases.dialogue.md`、
+  `/ltp` → `round-<m>.dialogue.md`、`/ltw` → `round-<m>.report.md`；
+  阶段表/分轮计划都写清「核心目的」（为什么这一步非做不可）。
+
 ## 快速开始
 
 **1. 安装插件**（需本机有 `dsh` CLI 与 `pnpm`）：
@@ -58,9 +76,14 @@ dsh plugin --profile web add <本仓库路径>
 
 **3. 敲命令**——主输入框直接输入，例如：
 
+```text
+/lts 把项目从 A 模式重构为 B 模式      # 讨论：先给判断，再问 3–4 个核心问题
+/ltck 直接贴报错截图 + 日志文件（只给附件、不写文字也算输入）
+/ltrv          # 不带参数：首次看小教程，之后默认 middle 档
 ```
-/lts 把项目从 A 模式重构为 B 模式
-```
+
+小阿卡那的产物落在 `.lignting/<feature>/`：方案文档 + 对话记录 + 人读总计划 `roadmap.md`；
+`/ltw` 的汇报另存为 `round-<m>.report.md`。
 
 ## 额外资料
 
